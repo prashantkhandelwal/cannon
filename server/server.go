@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/prashantkhandelwal/cannon/config"
-	apihandlers "github.com/prashantkhandelwal/cannon/server/handlers"
+	"github.com/prashantkhandelwal/cannon/server/handlers"
 )
 
 func Run(c *config.Config) {
@@ -25,7 +25,14 @@ func Run(c *config.Config) {
 
 	router := gin.Default()
 
-	router.GET("/ping", apihandlers.Ping)
+	api := router.Group("/api")
+	{
+		app := api.Group("app")
+		app.GET("/ping", handlers.Ping)
+
+		test := api.Group("test")
+		test.POST("/run", handlers.ExecuteTest())
+	}
 
 	router.NoRoute(func(c *gin.Context) {
 		c.JSON(404, gin.H{
