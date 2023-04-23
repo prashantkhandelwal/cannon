@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/prashantkhandelwal/cannon/config"
+	"github.com/prashantkhandelwal/cannon/memstore"
 	"github.com/prashantkhandelwal/cannon/server/handlers"
 )
 
@@ -23,6 +24,15 @@ func Run(c *config.Config) {
 		gin.SetMode(gin.DebugMode)
 	}
 
+	ms := memstore.MemoryStore{}
+	db, err := memstore.NewMemoryDB()
+	if err != nil {
+		log.Printf("ERROR: %s", err.Error())
+		return
+	}
+
+	ms.DB = db
+
 	router := gin.Default()
 
 	api := router.Group("/api")
@@ -31,7 +41,8 @@ func Run(c *config.Config) {
 		app.GET("/ping", handlers.Ping)
 
 		test := api.Group("test")
-		test.POST("/run", handlers.ExecuteTest())
+		test.POST("/run", handlers.ExecuteTest(&ms))
+		test.GET("/status/:id", handlers.GetStatus(&ms))
 	}
 
 	router.NoRoute(func(c *gin.Context) {
@@ -40,7 +51,7 @@ func Run(c *config.Config) {
 		})
 	})
 
-	err := router.Run(":" + port)
+	err = router.Run(":" + port)
 	if err != nil {
 		log.Fatalf("Error starting the server! - %v", err)
 	}
