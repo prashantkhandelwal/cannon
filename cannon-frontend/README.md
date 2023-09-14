@@ -1,3 +1,6 @@
+## Cannon Frontend
+Currently this frontend has two pages, the home page has a list of test Ids, and we can run a new test with create new test. There we can upload the script, and it makes the backend call to execute.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
