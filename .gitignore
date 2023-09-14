@@ -16,3 +16,5 @@
 
 public
 .vs/
+
+/node_modules
