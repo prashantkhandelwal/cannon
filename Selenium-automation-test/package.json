@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "selenium-webdriver": "^4.12.0"
+  },
+  "name": "selenium-automation-test",
+  "version": "1.0.0",
+  "description": "Selenium automation script",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha *.spec.js --timeout 10000"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
+}
