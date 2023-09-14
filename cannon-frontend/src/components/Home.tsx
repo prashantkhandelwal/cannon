@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 interface HomeProps {}
 const Home: React.FC = (props: HomeProps) => {
@@ -25,7 +25,6 @@ const Home: React.FC = (props: HomeProps) => {
           </a>
         </div>
       </div>
-
     </main>
   )
 }
